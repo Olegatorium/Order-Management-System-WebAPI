@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Orders.WebAPI.Migrations
+namespace DataBaseContent.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -18,10 +18,11 @@ namespace Orders.WebAPI.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderNumber = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrderCounter = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,8 +52,8 @@ namespace Orders.WebAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "OrderId", "CustomerName", "OrderDate", "OrderNumber", "TotalAmount" },
-                values: new object[] { new Guid("39b5e8ef-0f83-450f-a037-83720976999f"), "John Doe", new DateTime(2024, 3, 26, 19, 18, 41, 120, DateTimeKind.Utc).AddTicks(1451), "Order_2024_1", 1777.00m });
+                columns: new[] { "OrderId", "CustomerName", "OrderCounter", "OrderDate", "OrderNumber", "TotalAmount" },
+                values: new object[] { new Guid("39b5e8ef-0f83-450f-a037-83720976999f"), "John Doe", 1, new DateTime(2024, 3, 27, 3, 25, 33, 688, DateTimeKind.Utc).AddTicks(2837), "Order_2024_1", 1777.00m });
 
             migrationBuilder.InsertData(
                 table: "OrderItems",
@@ -67,12 +68,6 @@ namespace Orders.WebAPI.Migrations
                 name: "IX_OrderItems_OrderId",
                 table: "OrderItems",
                 column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderNumber",
-                table: "Orders",
-                column: "OrderNumber",
-                unique: true);
         }
 
         /// <inheritdoc />

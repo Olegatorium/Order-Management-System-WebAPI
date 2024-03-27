@@ -1,11 +1,18 @@
+using DataBaseContent;
 using Microsoft.EntityFrameworkCore;
-using Orders.WebAPI.DataBaseContent;
+using ServiceContracts;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// add services into IoC container
+builder.Services.AddScoped<IOrdersService, OrderService>();
+builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
+
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

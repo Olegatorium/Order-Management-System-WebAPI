@@ -5,7 +5,11 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orders.WebAPI", "Orders.WebAPI.csproj", "{559493A9-BD1E-4C65-8B1B-6CA1C44D5F2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceContracts", "..\ServiceContracts\ServiceContracts.csproj", "{5F88F838-42B2-49D8-BA39-74C15EBB2EA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceContracts", "..\ServiceContracts\ServiceContracts.csproj", "{5F88F838-42B2-49D8-BA39-74C15EBB2EA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "..\Services\Services.csproj", "{5F76E433-8665-4CCA-BD8E-E149A2534D10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseContent", "..\Entities\DataBaseContent.csproj", "{8D855E03-DBCA-4E6D-873D-FFED791053F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{5F88F838-42B2-49D8-BA39-74C15EBB2EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F88F838-42B2-49D8-BA39-74C15EBB2EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F88F838-42B2-49D8-BA39-74C15EBB2EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F76E433-8665-4CCA-BD8E-E149A2534D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F76E433-8665-4CCA-BD8E-E149A2534D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F76E433-8665-4CCA-BD8E-E149A2534D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F76E433-8665-4CCA-BD8E-E149A2534D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D855E03-DBCA-4E6D-873D-FFED791053F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D855E03-DBCA-4E6D-873D-FFED791053F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D855E03-DBCA-4E6D-873D-FFED791053F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D855E03-DBCA-4E6D-873D-FFED791053F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,14 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Orders.WebAPI.Models
+namespace DataBaseContent
 {
     public class Order
     {
         [Key]
         public Guid OrderId { get; set; }
-
-        public int OrderCounter { get; set; }
 
         public string? OrderNumber { get; set; }
 
@@ -23,7 +21,7 @@ namespace Orders.WebAPI.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "TotalAmount must be a positive number.")]
         public decimal TotalAmount { get; set; }
 
-
+        public int OrderCounter { get; set; }
 
 
 

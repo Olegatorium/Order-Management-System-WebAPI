@@ -1,4 +1,4 @@
-﻿using Orders.WebAPI.Models;
+﻿using DataBaseContent;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

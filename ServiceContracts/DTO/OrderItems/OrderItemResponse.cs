@@ -1,5 +1,5 @@
 ﻿
-using Orders.WebAPI.Models;
+using DataBaseContent;
 
 namespace ServiceContracts.DTO.OrderItems
 {

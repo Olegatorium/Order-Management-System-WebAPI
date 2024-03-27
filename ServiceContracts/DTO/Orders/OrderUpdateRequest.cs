@@ -1,5 +1,4 @@
-﻿
-using Orders.WebAPI.Models;
+﻿using DataBaseContent;
 using System.ComponentModel.DataAnnotations;
 
 namespace ServiceContracts.DTO.Orders

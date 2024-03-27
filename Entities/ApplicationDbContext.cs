@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Orders.WebAPI.Models;
 
-namespace Orders.WebAPI.DataBaseContent
+namespace DataBaseContent
 {
     public class ApplicationDbContext : DbContext
     {
@@ -16,11 +15,6 @@ namespace Orders.WebAPI.DataBaseContent
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Order>()
-                .HasIndex(o => o.OrderNumber)
-                .IsUnique();
-
-
             modelBuilder.Entity<Order>().HasData(
               new Order
               {
@@ -28,7 +22,8 @@ namespace Orders.WebAPI.DataBaseContent
                  OrderNumber = "Order_2024_1",
                  CustomerName = "John Doe",
                  OrderDate = DateTime.UtcNow,
-                 TotalAmount = 1777.00m
+                 TotalAmount = 1777.00m,
+                 OrderCounter = 1,
               }
             );
 

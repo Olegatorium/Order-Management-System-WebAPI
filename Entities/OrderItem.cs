@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Orders.WebAPI.Models
+namespace DataBaseContent
 {
     public class OrderItem
     {
@@ -21,7 +21,6 @@ namespace Orders.WebAPI.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "UnitPrice must be a positive number.")]
         public decimal UnitPrice { get; set; }
 
-    
         [ForeignKey("OrderId")]
         public virtual Order? Order { get; set; }
     }
