@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DataBaseContent;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
 using ServiceContracts.DTO.Orders;
@@ -17,11 +18,39 @@ namespace Orders.WebAPI.Controllers
         }
 
 
-        // GET: api/Orders
+        // GET:api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderResponse>>> GetOrders()
         {
             return await _ordersService.GetAllOrders();
+        }
+
+        // GET: api/Orders/5
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<OrderResponse>> GetOrder(Guid? orderId)
+        {
+            var foundOrder = await _ordersService.GetOrderByOrderId(orderId);
+
+            if (foundOrder == null)
+            {
+                return Problem("Order not found", statusCode: 404, title: "Order Search");
+            }
+
+            return foundOrder;
+        }
+
+        // POST: api/Orders
+        [HttpPost]
+        public async Task<ActionResult<OrderResponse>> PostOrder(OrderAddRequest? orderAddRequest)
+        {
+            if (orderAddRequest == null)
+            {
+                return Problem("Can`t add order", statusCode: 400, title: "Add Order");
+            }
+
+            OrderResponse? orderResponse = await _ordersService.AddOrder(orderAddRequest);
+
+            return CreatedAtAction("GetOrder", new { id = orderResponse.OrderId }, orderResponse);
         }
 
     }

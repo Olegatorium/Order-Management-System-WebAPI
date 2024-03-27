@@ -1,4 +1,5 @@
-﻿using ServiceContracts.DTO.Orders;
+﻿using DataBaseContent;
+using ServiceContracts.DTO.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,9 @@ namespace ServiceContracts
     public interface IOrdersService
     {
         Task<List<OrderResponse>> GetAllOrders();
+
+        Task<OrderResponse?> GetOrderByOrderId(Guid? orderId);
+
+        Task<OrderResponse?> AddOrder(OrderAddRequest orderAddRequest);
     }
 }

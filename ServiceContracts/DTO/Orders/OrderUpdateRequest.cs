@@ -26,7 +26,7 @@ namespace ServiceContracts.DTO.Orders
         {
             return new Order()
             {
-                OrderId = OrderId, OrderCounter = OrderCounter, OrderNumber = OrderNumber, CustomerName = CustomerName,
+                OrderId = OrderId, OrderNumber = OrderNumber, CustomerName = CustomerName,
                 OrderDate = OrderDate, TotalAmount = TotalAmount
             };
         }

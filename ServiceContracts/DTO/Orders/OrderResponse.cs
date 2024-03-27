@@ -7,8 +7,6 @@ namespace ServiceContracts.DTO.Orders
     {
         public Guid OrderId { get; set; }
 
-        public int OrderCounter { get; set; }
-
         public string? OrderNumber { get; set; }
 
         public string? CustomerName { get; set; }
@@ -21,7 +19,7 @@ namespace ServiceContracts.DTO.Orders
         {
             return new OrderUpdateRequest()
             {
-                OrderId = OrderId, OrderCounter = OrderCounter, OrderNumber = OrderNumber,
+                OrderId = OrderId, OrderNumber = OrderNumber,
                 CustomerName = CustomerName, OrderDate = OrderDate , TotalAmount = TotalAmount
             };
         }
@@ -36,7 +34,6 @@ namespace ServiceContracts.DTO.Orders
                 OrderId = order.OrderId,
                 OrderNumber = order.OrderNumber,
                 OrderDate = order.OrderDate,
-                OrderCounter = order.OrderCounter,
                 CustomerName = order.CustomerName,
                 TotalAmount = order.TotalAmount
             };

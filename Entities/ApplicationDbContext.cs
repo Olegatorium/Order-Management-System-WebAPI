@@ -23,7 +23,6 @@ namespace DataBaseContent
                  CustomerName = "John Doe",
                  OrderDate = DateTime.UtcNow,
                  TotalAmount = 1777.00m,
-                 OrderCounter = 1,
               }
             );
 
