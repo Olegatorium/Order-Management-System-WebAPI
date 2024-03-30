@@ -14,6 +14,12 @@ namespace ServiceContracts
 
         Task<OrderResponse?> GetOrderByOrderId(Guid? orderId);
 
-        Task<OrderResponse?> AddOrder(OrderAddRequest orderAddRequest);
+        Task<OrderResponse?> AddOrder(OrderAddRequest? orderAddRequest);
+
+        Task<string?> GetNewOrderNumber();
+
+        Task<OrderResponse?> UpdateOrder(Guid? orderId, OrderUpdateRequest? orderUpdateRequest);
+        Task<bool> DeleteOrder(Guid? orderId);
+
     }
 }

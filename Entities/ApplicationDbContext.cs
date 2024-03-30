@@ -21,7 +21,7 @@ namespace DataBaseContent
                  OrderId = Guid.Parse("39B5E8EF-0F83-450F-A037-83720976999F"),
                  OrderNumber = "Order_2024_1",
                  CustomerName = "John Doe",
-                 OrderDate = DateTime.UtcNow,
+                 OrderDate = DateTime.Parse("2024-03-27T03:35:39.5048768"),
                  TotalAmount = 1777.00m,
               }
             );
@@ -46,6 +46,5 @@ namespace DataBaseContent
             );
 
         }
-
     }
 }

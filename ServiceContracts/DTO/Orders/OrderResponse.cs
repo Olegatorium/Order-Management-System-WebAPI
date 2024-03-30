@@ -19,8 +19,8 @@ namespace ServiceContracts.DTO.Orders
         {
             return new OrderUpdateRequest()
             {
-                OrderId = OrderId, OrderNumber = OrderNumber,
-                CustomerName = CustomerName, OrderDate = OrderDate , TotalAmount = TotalAmount
+                CustomerName = CustomerName,
+                TotalAmount = TotalAmount
             };
         }
     }

@@ -44,7 +44,7 @@ namespace DataBaseContent.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
 
                     b.HasData(
                         new
@@ -81,7 +81,7 @@ namespace DataBaseContent.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
 
                     b.HasData(
                         new
