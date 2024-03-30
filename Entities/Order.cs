@@ -22,7 +22,6 @@ namespace DataBaseContent
         [Range(0.01, double.MaxValue, ErrorMessage = "TotalAmount must be a positive number.")]
         public decimal TotalAmount { get; set; }
 
-
-        //public virtual ICollection<OrderItem>? OrderItem { get; set; }
+        public virtual ICollection<OrderItem>? OrderItem { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DataBaseContent;
+using ServiceContracts.DTO.OrderItems;
 using ServiceContracts.DTO.Orders;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace ServiceContracts
         Task<string?> GetNewOrderNumber();
 
         Task<OrderResponse?> UpdateOrder(Guid? orderId, OrderUpdateRequest? orderUpdateRequest);
+
         Task<bool> DeleteOrder(Guid? orderId);
 
     }
