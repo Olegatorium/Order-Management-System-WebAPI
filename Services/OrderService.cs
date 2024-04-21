@@ -72,7 +72,7 @@ namespace Services
             if (orderId == null)
                 return null;
 
-            Order order = await _db.Orders.FirstOrDefaultAsync(x => x.OrderId == orderId);
+            Order? order = await _db.Orders.FirstOrDefaultAsync(x => x.OrderId == orderId);
 
             if (order == null)
                 return null;

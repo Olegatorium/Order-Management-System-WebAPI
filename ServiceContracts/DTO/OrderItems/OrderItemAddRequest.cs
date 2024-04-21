@@ -8,9 +8,6 @@ namespace ServiceContracts.DTO.OrderItems
     public class OrderItemAddRequest
     {
         [Required]
-        public Guid OrderId { get; set; }
-
-        [Required]
         [MaxLength(50)]
         public string? ProductName { get; set; }
 
@@ -24,7 +21,6 @@ namespace ServiceContracts.DTO.OrderItems
         {
             return new OrderItem()
             {
-                OrderId = OrderId,
                 ProductName = ProductName,
                 Quantity = Quantity,
                 UnitPrice = UnitPrice

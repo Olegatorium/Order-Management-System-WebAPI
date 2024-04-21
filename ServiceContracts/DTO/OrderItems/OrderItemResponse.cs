@@ -21,7 +21,6 @@ namespace ServiceContracts.DTO.OrderItems
         {
             return new OrderItemUpdateRequest()
             {
-                OrderItemId = OrderItemId,
                 OrderId = OrderId,
                 ProductName = ProductName,
                 Quantity = Quantity,

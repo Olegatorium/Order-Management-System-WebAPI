@@ -7,8 +7,6 @@ using ServiceContracts.DTO.Orders;
 
 namespace Orders.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-
     public class OrdersController : CustomControllerBase
     {
         private readonly IOrdersService _ordersService;
@@ -78,6 +76,5 @@ namespace Orders.WebAPI.Controllers
 
             return NoContent();
         }
-
     }
 }
