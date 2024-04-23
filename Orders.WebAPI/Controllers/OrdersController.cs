@@ -20,7 +20,12 @@ namespace Orders.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderResponse>>> GetOrders()
         {
-            return await _ordersService.GetAllOrders();
+            var orders = await _ordersService.GetAllOrders();
+
+            if(orders == null || orders.Count == 0)
+                return Problem("Orders not found", statusCode: 400, title: "Get Orders");
+
+            return orders;
         }
 
         // GET: api/Orders/5
@@ -30,9 +35,7 @@ namespace Orders.WebAPI.Controllers
             var foundOrder = await _ordersService.GetOrderByOrderId(orderId);
 
             if (foundOrder == null)
-            {
                 return Problem("Order not found", statusCode: 404, title: "Order Search");
-            }
 
             return foundOrder;
         }
@@ -44,35 +47,34 @@ namespace Orders.WebAPI.Controllers
             OrderResponse? orderResponse = await _ordersService.AddOrder(orderAddRequest);
 
             if (orderResponse == null)
-            {
-                return Problem("Can`t add order", statusCode: 400, title: "Add Order");
-            }
+                return Problem("Order Request can`t be blank", statusCode: 400, title: "Add Order");
 
             return CreatedAtAction("GetOrder", new { orderId = orderResponse.OrderId }, orderResponse);
         }
 
         //PUT: api/Orders/5
         [HttpPut("{orderId}")]
-        public async Task<IActionResult> PutOrder(Guid orderId, OrderUpdateRequest orderUpdateRequest) 
+        public async Task<ActionResult<OrderResponse>> PutOrder(Guid orderId, OrderUpdateRequest orderUpdateRequest) 
         {
+            if (!await _ordersService.IsOrderExist(orderId))
+                return Problem("No orders for the specified order ID", statusCode: 404, title: "Update Order");
+
             OrderResponse? orderResponse = await _ordersService.UpdateOrder(orderId, orderUpdateRequest);
 
             if (orderResponse == null)
-            {
-                return Problem("Can`t update order", statusCode: 400, title: "Update Order");
-            }
+                return Problem("Order Update Request can`t be blank", statusCode: 400, title: "Update Order");
 
             return CreatedAtAction("GetOrder", new { orderId = orderResponse.OrderId }, orderResponse);
         }
 
         //Delete: api/Orders/5
         [HttpDelete("{orderId}")]
-        public async Task<ActionResult<OrderResponse>> DeleteOrder(Guid? orderId) 
+        public async Task<IActionResult> DeleteOrder(Guid? orderId) 
         {
-            var IsRemoved = await _ordersService.DeleteOrder(orderId);
+            bool IsDeleted = await _ordersService.DeleteOrder(orderId);
 
-            if (!IsRemoved)
-                return Problem("Order not found", statusCode: 400, title: "Delete Order");
+            if (!IsDeleted)
+                return Problem("Order not found", statusCode: 404, title: "Remove Order");
 
             return NoContent();
         }

@@ -23,5 +23,8 @@ namespace ServiceContracts
 
         Task<bool> DeleteOrder(Guid? orderId);
 
+        Task<bool> IsOrderExist(Guid orderId);
+
+
     }
 }

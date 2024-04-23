@@ -15,14 +15,31 @@ namespace Services
             _db = db;
         }
 
+        public async Task<OrderItemResponse?> UpdateOrderItem(Guid orderId, Guid orderItemId, OrderItemUpdateRequest? orderItemUpdateRequest)
+        {
+            if (orderItemUpdateRequest == null)
+                return null;
+
+            var matcingOrderItem = await _db.OrderItems.FirstOrDefaultAsync(x => x.OrderId == orderId && x.OrderItemId == orderItemId);
+
+            if (matcingOrderItem == null)
+                return null;
+
+            OrderItem updateOrderItem = orderItemUpdateRequest.ToOrderItem();
+            matcingOrderItem.OrderId = updateOrderItem.OrderId;
+            matcingOrderItem.ProductName = updateOrderItem.ProductName;
+            matcingOrderItem.Quantity = updateOrderItem.Quantity;
+            matcingOrderItem.UnitPrice = updateOrderItem.UnitPrice;
+
+            await _db.SaveChangesAsync();
+
+            return matcingOrderItem.ToOrderItemResponse();
+
+        }
+
         public async Task<OrderItemResponse?> AddOrderItem(Guid orderId, OrderItemAddRequest? orderItemAddRequest)
         {
             if (orderItemAddRequest == null)
-                return null;
-
-            var matcingOrder = await _db.Orders.FirstOrDefaultAsync(x => x.OrderId == orderId);
-
-            if (matcingOrder == null)
                 return null;
 
             OrderItem orderItem = orderItemAddRequest.ToOrderItem();
@@ -65,6 +82,18 @@ namespace Services
                 return null;
 
             return foundOrderItem.ToOrderItemResponse();
+        }
+
+        public async Task<bool> DeleteOrderItem(Guid orderId, Guid orderItemId)
+        {
+            OrderItem? orderItem = await _db.OrderItems.FirstOrDefaultAsync(x => x.OrderId == orderId && x.OrderItemId == orderItemId);
+
+            if (orderItem == null)
+                return false;
+
+            _db.OrderItems.Remove(orderItem);
+            await _db.SaveChangesAsync();
+            return true;
         }
     }
 }

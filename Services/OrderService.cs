@@ -14,6 +14,13 @@ namespace Services
         {
             _db = db;
         }
+        public async Task<bool> IsOrderExist(Guid orderId)
+        {
+            if (await _db.Orders.AnyAsync(x => x.OrderId == orderId))
+                return true;
+
+            return false;
+        }
 
         public async Task<string?> GetNewOrderNumber() 
         {
