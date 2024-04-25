@@ -20,7 +20,6 @@ namespace ServiceContracts.DTO.Orders
             return new OrderUpdateRequest()
             {
                 CustomerName = CustomerName,
-                TotalAmount = TotalAmount
             };
         }
     }

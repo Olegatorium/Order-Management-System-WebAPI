@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // add services into IoC container
 builder.Services.AddScoped<IOrdersService, OrderService>();
 builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
+builder.Services.AddTransient<IOrderTotalCalculator, OrderTotalCalculator>();
+
 
 builder.Services.AddControllers();
 

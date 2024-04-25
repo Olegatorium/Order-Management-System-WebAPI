@@ -18,6 +18,7 @@ namespace DataBaseContent
         public DateTime OrderDate { get; set; }
 
         [Range(0.01, double.MaxValue, ErrorMessage = "TotalAmount must be a positive number.")]
+        [Editable(false)]
         public decimal TotalAmount { get; set; }
 
         public virtual ICollection<OrderItem>? OrderItem { get; set; }

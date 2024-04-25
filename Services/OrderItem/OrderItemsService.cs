@@ -9,10 +9,34 @@ namespace Services
     public class OrderItemsService : IOrderItemsService
     {
         public ApplicationDbContext _db;
+        private readonly IOrderTotalCalculator _orderTotalCalculator;
 
-        public OrderItemsService(ApplicationDbContext db)
+        public OrderItemsService(ApplicationDbContext db, IOrderTotalCalculator orderTotalCalculator)
         {
             _db = db;
+            _orderTotalCalculator = orderTotalCalculator;
+        }
+
+        public async Task<bool> IsOrderItemExist(Guid orderId, Guid orderItemId)
+        {
+            if (await _db.OrderItems.AnyAsync(x => x.OrderId == orderId && x.OrderItemId == orderItemId))
+                return true;
+
+            return false;
+        }
+
+        public async Task<bool> DeleteOrderItem(Guid orderId, Guid orderItemId)
+        {
+            OrderItem? orderItem = await _db.OrderItems.FirstOrDefaultAsync(x => x.OrderId == orderId && x.OrderItemId == orderItemId);
+
+            if (orderItem == null)
+                return false;
+
+            await _orderTotalCalculator.CalculateTotalAmountForOrder(orderId, orderItem, ActionType.Delete);
+
+            _db.OrderItems.Remove(orderItem);
+            await _db.SaveChangesAsync();
+            return true;
         }
 
         public async Task<OrderItemResponse?> UpdateOrderItem(Guid orderId, Guid orderItemId, OrderItemUpdateRequest? orderItemUpdateRequest)
@@ -26,6 +50,9 @@ namespace Services
                 return null;
 
             OrderItem updateOrderItem = orderItemUpdateRequest.ToOrderItem();
+
+            await _orderTotalCalculator.UpdateTotalAmountForOrder(orderId, matcingOrderItem, updateOrderItem);
+
             matcingOrderItem.OrderId = updateOrderItem.OrderId;
             matcingOrderItem.ProductName = updateOrderItem.ProductName;
             matcingOrderItem.Quantity = updateOrderItem.Quantity;
@@ -43,6 +70,9 @@ namespace Services
                 return null;
 
             OrderItem orderItem = orderItemAddRequest.ToOrderItem();
+
+            await _orderTotalCalculator.CalculateTotalAmountForOrder(orderId, orderItem, ActionType.Add);
+
             orderItem.OrderId = orderId;
             orderItem.OrderItemId = Guid.NewGuid();
 
@@ -82,18 +112,6 @@ namespace Services
                 return null;
 
             return foundOrderItem.ToOrderItemResponse();
-        }
-
-        public async Task<bool> DeleteOrderItem(Guid orderId, Guid orderItemId)
-        {
-            OrderItem? orderItem = await _db.OrderItems.FirstOrDefaultAsync(x => x.OrderId == orderId && x.OrderItemId == orderItemId);
-
-            if (orderItem == null)
-                return false;
-
-            _db.OrderItems.Remove(orderItem);
-            await _db.SaveChangesAsync();
-            return true;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Services
         {
             _db = db;
         }
+
         public async Task<bool> IsOrderExist(Guid orderId)
         {
             if (await _db.Orders.AnyAsync(x => x.OrderId == orderId))
@@ -26,8 +27,10 @@ namespace Services
         {
             var latestOrder = await _db.Orders.OrderByDescending(row => row.OrderDate).FirstOrDefaultAsync();
 
+            int currYear = DateTime.Now.Year;
+
             if (latestOrder == null)
-                return null; 
+                return $"Order_{currYear}_1";
 
             string latestOrderNumber = latestOrder.OrderNumber;
 
@@ -46,7 +49,6 @@ namespace Services
 
             counter++;
 
-            int currYear = DateTime.Now.Year;
             orders = counter.ToString();
 
             string orderNumber = $"Order_{currYear}_{orders}";
@@ -62,6 +64,7 @@ namespace Services
             Order order = orderAddRequest.ToOrder();
             order.OrderId = Guid.NewGuid();
             order.OrderNumber = await GetNewOrderNumber();
+            order.TotalAmount = 0;
      
             _db.Orders.Add(order);
             await _db.SaveChangesAsync();

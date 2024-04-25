@@ -1,9 +1,5 @@
 ﻿using ServiceContracts.DTO.OrderItems;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ServiceContracts
 {
@@ -23,5 +19,7 @@ namespace ServiceContracts
 
         // Remove an existing order item
         Task<bool> DeleteOrderItem(Guid orderId, Guid orderItemId);
+
+        Task<bool> IsOrderItemExist(Guid orderId, Guid orderItemId);
     }
 }

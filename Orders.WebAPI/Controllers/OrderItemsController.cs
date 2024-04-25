@@ -62,8 +62,11 @@ namespace Orders.WebAPI.Controllers
         [HttpPut("{orderId}/items/{orderItemId}")]
         public async Task<ActionResult<OrderItemResponse>> UpdateOrderItem(Guid orderId, Guid orderItemId, [FromBody] OrderItemUpdateRequest orderItemUpdateRequest)
         {
-            if (!await _ordersService.IsOrderExist(orderItemUpdateRequest.OrderId))
+            if (!await _ordersService.IsOrderExist(orderItemUpdateRequest.OrderId) || !await _ordersService.IsOrderExist(orderId))
                 return Problem("No orders for the specified order ID", statusCode: 404, title: "Update Order Item");
+
+            if (!await _orderItemsService.IsOrderItemExist(orderId,orderItemId))
+                return Problem("No order items for the specified order item ID", statusCode: 404, title: "Update Order Item");
 
             OrderItemResponse? updatedOrderItem = await _orderItemsService.UpdateOrderItem(orderId, orderItemId, orderItemUpdateRequest);
 
