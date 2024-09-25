@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orders.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:Orders.WebAPI.Controllers.v1.OrdersController.GetOrders">
+            <summary>
+            To get list of orders
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orders.WebAPI.Controllers.v2.OrdersController.GetOrders">
+            <summary>
+            To get list of only orders id
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

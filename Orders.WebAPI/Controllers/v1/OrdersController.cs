@@ -1,12 +1,10 @@
-﻿using DataBaseContent;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
-using ServiceContracts.DTO.OrderItems;
 using ServiceContracts.DTO.Orders;
 
-namespace Orders.WebAPI.Controllers
+namespace Orders.WebAPI.Controllers.v1
 {
+    [ApiVersion("1.0")]
     public class OrdersController : CustomControllerBase
     {
         private readonly IOrdersService _ordersService;
@@ -17,12 +15,17 @@ namespace Orders.WebAPI.Controllers
         }
 
         // GET:api/Orders
+        /// <summary>
+        /// To get list of orders
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        //[Produces("application/xml")]
         public async Task<ActionResult<IEnumerable<OrderResponse>>> GetOrders()
         {
             var orders = await _ordersService.GetAllOrders();
 
-            if(orders == null || orders.Count == 0)
+            if (orders == null || orders.Count == 0)
                 return Problem("Orders not found", statusCode: 400, title: "Get Orders");
 
             return orders;
@@ -54,7 +57,7 @@ namespace Orders.WebAPI.Controllers
 
         //PUT: api/Orders/5
         [HttpPut("{orderId}")]
-        public async Task<ActionResult<OrderResponse>> PutOrder(Guid orderId, OrderUpdateRequest orderUpdateRequest) 
+        public async Task<ActionResult<OrderResponse>> PutOrder(Guid orderId, OrderUpdateRequest orderUpdateRequest)
         {
             if (!await _ordersService.IsOrderExist(orderId))
                 return Problem("No orders for the specified order ID", statusCode: 404, title: "Update Order");
@@ -69,7 +72,7 @@ namespace Orders.WebAPI.Controllers
 
         //Delete: api/Orders/5
         [HttpDelete("{orderId}")]
-        public async Task<IActionResult> DeleteOrder(Guid? orderId) 
+        public async Task<IActionResult> DeleteOrder(Guid? orderId)
         {
             bool IsDeleted = await _ordersService.DeleteOrder(orderId);
 
