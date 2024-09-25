@@ -1,10 +1,6 @@
-﻿using DataBaseContent;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
 using ServiceContracts.DTO.OrderItems;
-using ServiceContracts.DTO.Orders;
-using Services;
 
 namespace Orders.WebAPI.Controllers
 {
@@ -65,7 +61,7 @@ namespace Orders.WebAPI.Controllers
             if (!await _ordersService.IsOrderExist(orderItemUpdateRequest.OrderId) || !await _ordersService.IsOrderExist(orderId))
                 return Problem("No orders for the specified order ID", statusCode: 404, title: "Update Order Item");
 
-            if (!await _orderItemsService.IsOrderItemExist(orderId,orderItemId))
+            if (!await _orderItemsService.IsOrderItemExist(orderId, orderItemId))
                 return Problem("No order items for the specified order item ID", statusCode: 404, title: "Update Order Item");
 
             OrderItemResponse? updatedOrderItem = await _orderItemsService.UpdateOrderItem(orderId, orderItemId, orderItemUpdateRequest);
@@ -78,9 +74,9 @@ namespace Orders.WebAPI.Controllers
 
         // Delete:/api/orders/{orderId}/items/{id}
         [HttpDelete("{orderId}/items/{orderItemId}")]
-        public async Task <IActionResult> DeleteOrderItem(Guid orderId, Guid orderItemId)
+        public async Task<IActionResult> DeleteOrderItem(Guid orderId, Guid orderItemId)
         {
-            bool IsDeleted =  await _orderItemsService.DeleteOrderItem(orderId, orderItemId);
+            bool IsDeleted = await _orderItemsService.DeleteOrderItem(orderId, orderItemId);
 
             if (!IsDeleted)
                 return Problem("Order item not found", statusCode: 404, title: "Remove Order Item");
